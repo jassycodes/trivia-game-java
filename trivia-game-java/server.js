@@ -6,13 +6,13 @@ function check(){
 	var correct = 0;
 
 
-	if (question1 == "") {
+	if (question1 == "Tomorrow") {
 		correct++;
 }
-	if (question2 == "") {
+	if (question2 == "water") {
 		correct++;
 }	
-	if (question3 == "") {
+	if (question3 == "cold") {
 		correct++;
 	}
 	
