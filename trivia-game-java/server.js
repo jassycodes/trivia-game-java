@@ -1,40 +1,32 @@
-function check(){
+var express = require('express');
 
-	var question1 = document.quiz.question1.value;
-	var question2 = document.quiz.question2.value;
-	var question3 = document.quiz.question3.value;
-	var correct = 0;
+var path = require('path');
+
+var logger = require('morgan');
 
 
-	if (question1 == "Tomorrow") {
-		correct++;
-}
-	if (question2 == "water") {
-		correct++;
-}	
-	if (question3 == "cold") {
-		correct++;
-	}
-	
-	var pictures = ["win.gif", "meh.gif", "lose.gif"];
-	var messages = ["Great job!", "That's just okay", "You really need to do better"];
-	var score;
+var bodyParser = require('body-parser'); 
+var cookieParser = require('cookie-parser'); 
+var port = 3000; 
+var routes = require('./routes/index');
 
-	if (correct == 0) {
-		score = 2;
-	}
+var app = express(); 
+app.use(logger('combined'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-	if (correct > 0 && correct < 3) {
-		score = 1;
-	}
+app.set('views', path.join(__dirname, 'views'));
+app.set('public', path.join(__dirname, 'public'));
+app.set('view engine', 'ejs');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '/public')));
+app.use('/', routes);
 
-	if (correct == 3) {
-		score = 0;
-	}
+app.listen(port, function() {
+  console.log('Listening in on port: ' + port);
+  console.log('http://localhost:' + port + "/");
+});
 
-	document.getElementById("after_submit").style.visibility = "visible";
-
-	document.getElementById("message").innerHTML = messages[score];
-	document.getElementById("number_correct").innerHTML = "You got " + correct + " correct.";
-	document.getElementById("picture").src = pictures[score];
-	}
+module.exports = app; 
