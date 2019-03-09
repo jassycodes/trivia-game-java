@@ -1,10 +1,15 @@
 $( document ).ready(function() {
+	var correct = 0;
+
+	var pictures = ["/fail.gif", "/meh.gif", "/success.gif"];
+	var messages = ["You really need to do better", "That's just okay", "Great Job!"];
+	var score = 0;
+
 	function check(){
 
 		var question1 = document.quiz.question1.value;
 		var question2 = document.quiz.question2.value;
 		var question3 = document.quiz.question3.value;
-		var correct = 0;
 
 
 		if (question1 == "Tomorrow") {
@@ -15,26 +20,10 @@ $( document ).ready(function() {
 	}	
 		if (question3 == "cold") {
 			correct++;
-		}
+	}
 		
-		var pictures = ["public/win.gif", "public/meh.gif", "public/lose.gif"];
-		var messages = ["Great job!", "That's just okay", "You really need to do better"];
-		var score;
 
-		if (correct == 3) {
-			score = 3;
-		} 
-
-		if (correct > 0 && correct < 3) {
-			score = 2;
-		}
-
-		if (correct == 1) {
-			score = 1;
-		}
-		if (correct == 0 ) {
-			score =0;
-		}
+		
 	}
 
 		
@@ -44,8 +33,10 @@ $( document ).ready(function() {
 		//console.log('yay!');
 		document.getElementById("after_submit").style.visibility = "visible";
 
-		document.getElementById("message").innerHTML = messages[score];
+		document.getElementById("message").innerHTML = messages[correct];
 		document.getElementById("number_correct").innerHTML = "You got " + correct + " correct.";
-		document.getElementById("picture").src = pictures[score];
+		document.getElementById("picture").src = pictures[correct];
+		console.log(score);
+
 	});
 });
