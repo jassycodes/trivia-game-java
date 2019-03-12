@@ -1,8 +1,8 @@
 $( document ).ready(function() {
 	var correct = 0;
-	var pictures = ["/fail.gif", "/meh.gif", "/success.gif"];
-	var messages = ["You really need do better", "That's just okay", "Great Job!"];
-	var score;
+	var pictures = ["/mad.gif", "/fail.gif", "/meh.gif", "/success.gif"];
+	var messages = ["I thought you were better than that", "You really need do better", "That's just okay", "Great Job!", ""];
+	var score = 0 ;
 
 
 	function check(){
@@ -23,7 +23,7 @@ $( document ).ready(function() {
 		
 
 		//console.log("question1 value is ",question1);
-		if (q1 === "tomorrow") {
+		if (q1 === "post office") {
 			correct++; 
 	}
 		if (q2 === "fire") {
@@ -50,22 +50,28 @@ $( document ).ready(function() {
 		if (q9 === "stairs") {
 			correct++; 
 	}
-		if (q10 === "widow") {
+		if (q10 === "noise") {
 			correct++; 
 	}
 	
-
-
-	if (correct < 3) {
+	if (correct == 0 || correct ==1) {
 		score = 0;
 	}
 
-	if (correct > 3 || correct < 7) {
+	else if (correct == 2 || correct == 3) {
 		score = 1;
 	}
 
-	if (correct > 7) {
+	else if (correct > 3 && correct < 7) {
 		score = 2;
+	}
+
+	else if (correct > 7) {
+		score = 3;
+	}
+
+	if (correct == 10) {
+		score = 4;
 	}
 }
 		
@@ -75,6 +81,8 @@ $( document ).ready(function() {
 		check();
 		document.getElementById("after_submit").style.visibility = "visible";
 		console.log("question1 value is "+question1+" haha ");
+
+		console.log("score is "+ score)
 		document.getElementById("message").innerHTML = messages[score];
 		document.getElementById("number_correct").innerHTML = "You got " + correct + " correct.";
 		document.getElementById("picture").src = pictures[score];
